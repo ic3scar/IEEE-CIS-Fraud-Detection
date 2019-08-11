@@ -143,17 +143,12 @@ def drop_cols(df_train, df_test):
 
 def PCA_change(df, cols, n_components, prefix='PCA_', rand_seed=4):
     pca = PCA(n_components=n_components, random_state=rand_seed)
-
     principalComponents = pca.fit_transform(df[cols])
-
-    principalDf = pd.DataFrame(principalComponents)
-
-    df.drop(cols, axis=1, inplace=True)
-
-    principalDf.rename(columns=lambda x: str(prefix)+str(x), inplace=True)
-
-    df = pd.concat([df, principalDf], axis=1)
     
+    principalDf = pd.DataFrame(principalComponents)
+    df.drop(cols, axis=1, inplace=True)
+    principalDf.rename(columns=lambda x: str(prefix)+str(x), inplace=True)
+    df = pd.concat([df, principalDf], axis=1)
     return df
 
 def resumetable(df):
